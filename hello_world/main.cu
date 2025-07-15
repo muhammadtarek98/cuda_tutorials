@@ -1,11 +1,18 @@
 #include <bits/stdc++.h>
-__global__ void kernel(void)
+#include <cuda_runtime.h>
+#include<device_launch_parameters.h>
+__global__ void kernel()
 {
+    printf( "Hello, World!\n");
 
 }
 int main()
 {
-    kernel<<<1,1>>>();
-    std::cout << "Hello, World!" << std::endl;
+    int nx=16,ny=4;
+    dim3 block(nx/2,ny/2);
+    dim3 grid(nx/block.x,ny/block.y);
+    kernel<<<grid,block  >>>();
+    cudaDeviceSynchronize();
+    cudaDeviceReset();
     return 0;
 }
