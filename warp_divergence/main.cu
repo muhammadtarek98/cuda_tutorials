@@ -1,4 +1,5 @@
 #include <iostream>
+extern "C"{
 __global__ void kernel_1()
 {
     int gid=threadIdx.x+blockIdx.x*blockDim.x;
@@ -12,6 +13,7 @@ __global__ void kernel_1()
     {
         a=200.0,b=500.0;
     }
+    printf("a=%d\t b=%d\n",a,b);
 }
 __global__ void kernel_2()
 {
@@ -25,10 +27,13 @@ __global__ void kernel_2()
     {
         a=200.0,b=500.0;
     }
+    printf("a=%d\t b=%d\n",a,b);
+}
 }
 int main()
 {
     int size=1<<22;
+    std::cout<<size<<std::endl;
     dim3 block_size(128);
     dim3 grid_size((size+block_size.x-1)/block_size.x);
     kernel_1<<<grid_size,block_size>>>();
