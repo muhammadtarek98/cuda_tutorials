@@ -67,9 +67,7 @@ int main(){
     arr_accum<<<grid,block>>>(d_input,d_part,size);
     cudaDeviceSynchronize();
     cudaMemcpy(h_part.data(),d_part,part_byte_size,cudaMemcpyDeviceToHost);
-    for (int i = 0; i < grid.x; i++) {
-        gpu_res += h_part[i];
-    }
+    seq_array_accum(gpu_res,h_part);
     std::cout<<compare_results(cpu_res,gpu_res)<<std::endl;
     std::cout<<cpu_res<<" "<<gpu_res;
     cudaFree(d_input);
