@@ -18,13 +18,13 @@ void init(std::vector<int>&arr)
 }
 __global__ void arr_accum(int *arr,int *chunk,int size)
 {
-    auto tid=threadIdx.x;
-    auto tgid=blockDim.x*blockIdx.x+tid;
+    const auto tid=threadIdx.x;
+    const auto tgid=blockDim.x*blockIdx.x+tid;
     if (tgid>size)
     {
         return;
     }
-    for (int offset=1;offset<=blockDim.x/2;offset*=2)
+    for (auto offset=1;offset<=blockDim.x/2;offset*=2)
     {
          if (tid%(2*offset)==0)
          {
