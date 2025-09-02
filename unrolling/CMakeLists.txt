@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.31)
 set(CMAKE_CUDA_ARCHITECTURES 75)
 set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.8/bin/nvcc")
-project(synchronization LANGUAGES C CXX CUDA)
+project(unrolling LANGUAGES C CXX CUDA)
 enable_language(CUDA)
 set(CMAKE_CUDA_STANDARD 20)
 
