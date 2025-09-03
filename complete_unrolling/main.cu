@@ -44,7 +44,6 @@ __global__ void kernel(int *input,int *part){
         vsmem[tid]+=vsmem[tid+1];
     }
     __syncthreads();
-
     if(tid==0){
     part[blockIdx.x]=window[0];
     }
