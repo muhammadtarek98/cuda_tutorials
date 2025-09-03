@@ -15,9 +15,8 @@ void init(std::vector<int>&arr)
         arr[i]=i%10;
     }
 }
-__global__ void kernel(int *input,int *part,int size){
+__global__ void kernel(int *input,int *part){
     auto tid=threadIdx.x;
-    auto index=tid+blockIdx.x*blockDim.x;
     int *window=input+blockDim.x*blockIdx.x;
     if(blockDim.x>=1024&&tid<512){
     window[tid]+=window[tid+512];
@@ -71,7 +70,7 @@ int main(int argc,const char *argv [])
     cudaMalloc(reinterpret_cast<void**>(&d_part),part_byte_size);
     cudaMemset(d_part,0,part_byte_size);
     cudaMemcpy(d_input,h_input.data(),input_byte_size,cudaMemcpyHostToDevice);
-    kernel<<<grid,blocks>>>(d_input,d_part,size);
+    kernel<<<grid,blocks>>>(d_input,d_part);
     cudaDeviceSynchronize();
     cudaMemcpy(h_part.data(),d_part,part_byte_size,cudaMemcpyDeviceToHost);
     seq_array_accum(gpu_res,h_part);
