@@ -19,8 +19,8 @@ void init(std::vector<int>&arr)
 template<unsigned int iblock_size>
 __global__ void kernel(int *input,int *part,int size)
 {
-    int tid=threadIdx.x;
-    int index=tid+blockDim.x*blockIdx.x*8;
+    auto tid=threadIdx.x;
+    auto index=tid+blockDim.x*blockIdx.x*8;
     int *window=input+blockDim.x*blockIdx.x*8;
     if ((index+7*blockDim.x)<size)
     {
@@ -74,10 +74,12 @@ __global__ void kernel(int *input,int *part,int size)
 }
 int main()
 {
-    auto size=1<<27,block_size=1024,cpu_res=0,gpu_res=0;
+    constexpr auto size=1<<27;
+    constexpr auto block_size=1024;
+    auto cpu_res=0,gpu_res=0;
     dim3 blocks(block_size);
     dim3 grid((size/block_size)/8);
-    const auto input_byte_size=size*sizeof(int);
+    constexpr auto input_byte_size=size*sizeof(int);
     const auto part_byte_size=grid.x*sizeof(int);
     std::vector<int>h_input(size);
     std::vector<int>h_part(grid.x,0);
