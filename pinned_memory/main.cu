@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include<device_launch_parameters.h>
 #include <cuda_runtime.h>
 
 int main(int argc,const char *argv [])
