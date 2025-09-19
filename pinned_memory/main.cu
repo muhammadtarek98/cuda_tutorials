@@ -5,7 +5,7 @@
 int main(int argc,const char *argv [])
 {
     int isize=1<<25;
-    auto nbyes=isize* sizeof(float );
+    auto nbyes=isize* sizeof(float);
     std::vector<float> h_a(isize);std::vector<float>d_a(isize);
     cudaMallocHost(reinterpret_cast<float **>(h_a.data()),nbyes);
     cudaMalloc(reinterpret_cast<float **>(d_a.data()),nbyes);
