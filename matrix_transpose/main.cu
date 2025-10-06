@@ -77,6 +77,40 @@ __global__ void col_major_unrolling(int *a,int *trans,int nx,int ny)
     __syncthreads();
 
 }
+__global__ void diagonal_major(int *a,int *trans,int nx,int ny)
+{
+    int blk_x=blockIdx.x,blk_y=(blockIdx.x+blockIdx.y)%gridDim.x;
+    int ix=blockIdx.x*blk_x+threadIdx.x;
+    int iy=blockIdx.y*blk_y+threadIdx.y;
+    if (ix<nx&&iy<ny)
+    {
+        trans[ix*ny+iy]=a[iy*nx+ix];
+    }
+    __syncthreads();
+}
+void run_diagonal_major_kernel()
+{
+    printf("run_diagonal_major_kernel\n");
+    int nx=1024,ny=1024,block_x=128,block_y=8;
+    int sz=ny*nx;
+    int bytes=sizeof(int)*sz;
+    dim3 blocks(block_x,block_y);
+    dim3 grid((nx + block_x - 1) / block_x,(ny + block_y - 1) / block_y);
+    std::vector<int> h_a(nx*ny,0);
+    std::vector<int>h_a_trans(ny*nx,0);
+    int *d_a=nullptr,*d_a_trans=nullptr;
+    cudaMalloc(reinterpret_cast<void**>(&d_a),bytes);
+    cudaMalloc(reinterpret_cast<void**>(&d_a_trans),bytes);
+    init_matrix(h_a);
+    cudaMemcpy(d_a, h_a.data(), bytes, cudaMemcpyHostToDevice);
+    row_major_kernel<<<grid,blocks>>>(d_a,d_a_trans,nx,ny);
+    cudaDeviceSynchronize();
+    cudaMemcpy(h_a_trans.data(),d_a_trans,bytes,cudaMemcpyDeviceToHost);
+    cudaFree(d_a),cudaFree(d_a_trans);
+    print_matrix(h_a_trans,ny,nx);
+    h_a.clear(),h_a_trans.clear();
+    cudaDeviceReset();
+}
 void run_row_major_kernel()
 {
     printf("run_row_major_kernel\n");
@@ -178,6 +212,6 @@ int main()
     run_col_major_kernel();
     run_col_major_unroll_kernel();
     run_row_major_unroll_kernel();
-
+    run_diagonal_major_kernel();
     return 0;
 }
