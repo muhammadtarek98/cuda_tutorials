@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
-void print_matrix(std::vector<int> &matrix,int nx,int ny)
+const int nx=1024,ny=1024,block_x=128,block_y=8;
+
+void print_matrix(std::vector<int> &matrix)
 {
     for (int i = 0; i < nx; ++i)
     {
@@ -91,7 +93,6 @@ __global__ void diagonal_major(int *a,int *trans,int nx,int ny)
 void run_diagonal_major_kernel()
 {
     printf("run_diagonal_major_kernel\n");
-    int nx=1024,ny=1024,block_x=128,block_y=8;
     int sz=ny*nx;
     int bytes=sizeof(int)*sz;
     dim3 blocks(block_x,block_y);
@@ -114,7 +115,6 @@ void run_diagonal_major_kernel()
 void run_row_major_kernel()
 {
     printf("run_row_major_kernel\n");
-    int nx=1024,ny=1024,block_x=128,block_y=8;
     int sz=ny*nx;
     int bytes=sizeof(int)*sz;
     dim3 blocks(block_x,block_y);
@@ -137,8 +137,6 @@ void run_row_major_kernel()
 void run_col_major_kernel()
 {
     printf("run_col_major_kernel\n");
-
-    int nx=1024,ny=1024,block_x=128,block_y=8;
     int sz=ny*nx;
     int bytes=sizeof(int)*sz;
     dim3 blocks(block_x,block_y);
@@ -162,7 +160,6 @@ void run_col_major_kernel()
 void run_col_major_unroll_kernel()
 {
     printf("run_col_major_unroll_kernel\n");
-    int nx=1024,ny=1024,block_x=128,block_y=8;
     int sz=ny*nx;
     int bytes=sizeof(int)*sz;
     dim3 blocks(block_x,block_y);
@@ -185,7 +182,6 @@ void run_col_major_unroll_kernel()
 void run_row_major_unroll_kernel()
 {
     printf("run_row_major_unroll_kernel\n");
-    int nx=1024,ny=1024,block_x=128,block_y=8;
     int sz=ny*nx;
     int bytes=sizeof(int)*sz;
     dim3 blocks(block_x,block_y);
