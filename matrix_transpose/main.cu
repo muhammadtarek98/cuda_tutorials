@@ -108,7 +108,7 @@ void run_diagonal_major_kernel()
     cudaDeviceSynchronize();
     cudaMemcpy(h_a_trans.data(),d_a_trans,bytes,cudaMemcpyDeviceToHost);
     cudaFree(d_a),cudaFree(d_a_trans);
-    print_matrix(h_a_trans,ny,nx);
+    print_matrix(h_a_trans);
     h_a.clear(),h_a_trans.clear();
     cudaDeviceReset();
 }
@@ -130,7 +130,7 @@ void run_row_major_kernel()
     cudaDeviceSynchronize();
     cudaMemcpy(h_a_trans.data(),d_a_trans,bytes,cudaMemcpyDeviceToHost);
     cudaFree(d_a),cudaFree(d_a_trans);
-    print_matrix(h_a_trans,ny,nx);
+    print_matrix(h_a_trans);
     h_a.clear(),h_a_trans.clear();
     cudaDeviceReset();
 }
@@ -152,7 +152,7 @@ void run_col_major_kernel()
     cudaDeviceSynchronize();
     cudaMemcpy(h_a_trans.data(),d_a_trans,bytes,cudaMemcpyDeviceToHost);
     cudaFree(d_a),cudaFree(d_a_trans);
-    print_matrix(h_a_trans,ny,nx);
+    print_matrix(h_a_trans);
     h_a.clear(),h_a_trans.clear();
     cudaDeviceReset();
 }
@@ -175,7 +175,7 @@ void run_col_major_unroll_kernel()
     cudaDeviceSynchronize();
     cudaMemcpy(h_a_trans.data(),d_a_trans,bytes,cudaMemcpyDeviceToHost);
     cudaFree(d_a),cudaFree(d_a_trans);
-    print_matrix(h_a_trans,ny,nx);
+    print_matrix(h_a_trans);
     h_a.clear(),h_a_trans.clear();
     cudaDeviceReset();
 }
@@ -197,7 +197,7 @@ void run_row_major_unroll_kernel()
     cudaDeviceSynchronize();
     cudaMemcpy(h_a_trans.data(),d_a_trans,bytes,cudaMemcpyDeviceToHost);
     cudaFree(d_a),cudaFree(d_a_trans);
-    print_matrix(h_a_trans,ny,nx);
+    print_matrix(h_a_trans);
     h_a.clear(),h_a_trans.clear();
     cudaDeviceReset();
 }
