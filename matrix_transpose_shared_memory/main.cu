@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #define BDMX 64
 #define BDMY 8
-#define PAD 2
 struct customdetr
 {
     void operator()(int *ptr)
