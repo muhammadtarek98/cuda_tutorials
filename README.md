@@ -97,6 +97,32 @@ make
 - CMake build system
 - C++ compiler with C++11 support or higher
 
+## C++ and Modern C++ Features
+
+These tutorials demonstrate practical use of C++ and modern C++ features alongside CUDA programming:
+
+### Core C++ Features
+- **Templates** - Generic programming with template parameters for flexible kernel code
+- **Structures and Classes** - Data organization using structs (AOS vs SOA patterns)
+- **Standard Library** - Using STL containers and utilities
+
+### Modern C++ (C++11/14/17) Features
+- **Type Inference (`auto`)** - Automatic type deduction for cleaner code
+- **`constexpr`** - Compile-time constant expressions for performance
+- **Smart Pointers** - `std::unique_ptr` and `std::shared_ptr` for automatic memory management
+- **Range-based For Loops** - Simplified iteration over containers
+- **`std::vector`** - Dynamic arrays for host-side data management
+- **`std::tuple`** - Multiple return values and structured data
+- **Uniform Initialization** - Modern initialization syntax
+- **`nullptr`** - Type-safe null pointer constant
+
+### Examples in the Tutorials
+- `template_parameters` demonstrates template-based kernel optimization
+- `AOS_VS_SOA` showcases smart pointers and structured data patterns
+- `stencil_algorithm` uses tuples, range-based loops, and modern headers
+- `parallel_reduction_warp_shuffling` implements `std::unique_ptr` for resource management
+- Various tutorials use `auto`, `constexpr`, and type inference throughout
+
 ## Tutorial Structure
 
 Each tutorial is designed to be:
