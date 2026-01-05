@@ -60,7 +60,7 @@ This repository contains practical examples and tutorials demonstrating CUDA pro
 ### Parallel Reduction
 - **parallel_reduction_with_shared_memory** - Reduction using shared memory
 - **parallel_reduction_warp_shuffling** - Reduction with warp shuffle instructions
-- **divergence_in_parellel_reduction** - Managing divergence in reduction operations
+- **divergence_in_parallel_reduction** - Managing divergence in reduction operations
 - **parallel_reduction_using_dynamic_parallelism** - Reduction with dynamic parallelism
 
 ### Advanced Features
