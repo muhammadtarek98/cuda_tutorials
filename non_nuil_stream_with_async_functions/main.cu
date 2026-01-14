@@ -11,7 +11,7 @@ struct StreamPtrDeleter {
         if (ptr && *ptr) {
             cudaStreamDestroy(*ptr);
         }
-        delete ptr;  // Delete the allocated pointer itself
+        delete ptr;
     }
 };
 
