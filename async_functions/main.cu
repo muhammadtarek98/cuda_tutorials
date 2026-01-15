@@ -48,7 +48,7 @@ int main()
     cudaMemcpyAsync(d_out.get(),h_out.get(),bytes,cudaMemcpyDeviceToHost,cudaStream_t(stream.get()));
     cudaStreamSynchronize(cudaStream_t(stream.get()));
     cudaStreamDestroy(cudaStream_t(stream.get()));
-    d_int.release(),d_out.release();
+    d_int.reset(),d_out.reset();
 
 
 
