@@ -1,7 +1,5 @@
 # CUDA Tutorials
 
-**Last Updated:** January 2026
-
 A comprehensive collection of CUDA programming tutorials covering various parallel programming concepts, memory models, optimization techniques, and performance patterns for NVIDIA GPUs.
 
 ## Overview
