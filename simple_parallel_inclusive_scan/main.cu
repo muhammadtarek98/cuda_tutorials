@@ -15,19 +15,19 @@ __global__ void kernel(int *in,int *out,int sz)
         __syncthreads();
 
     }
-    *out=in[tgid];
+    *out=in[tid];
 }
 __host__ void init(int *ptr,int sz)
 {
     for (int i=0;i<sz;++i)
     {
-        ptr[i]=1;
+        ptr[i]=(i+1)%10;
     }
 }
 int main()
 {
     const auto sz=1<<10;
-    const auto blocks=1024;
+    const auto blocks=512;
     auto const bytes=sizeof(int)*sz;
     const dim3 block(blocks);
     const dim3 grid((sz + blocks - 1) / blocks);
