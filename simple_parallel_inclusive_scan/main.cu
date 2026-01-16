@@ -31,20 +31,18 @@ int main()
     auto const bytes=sizeof(int)*sz;
     const dim3 block(blocks);
     const dim3 grid((sz + blocks - 1) / blocks);
-    int *h_in=new int[sz];
-    int *h_out=new int;
-    init(h_in,sz);
-    int *d_in=nullptr;
-    int *d_out=nullptr;
-    cudaMalloc(reinterpret_cast<void**>(&d_in),bytes);
-    cudaMalloc(reinterpret_cast<void**>(&d_out),sizeof(int));
-    cudaMemcpy(d_in,h_in,bytes,cudaMemcpyHostToDevice);
-    kernel<<<grid,block>>>(d_in,d_out,sz);
+    std::unique_ptr<int[]> h_in{std::make_unique<int[]>(sz)};
+    std::unique_ptr<int>h_out{std::make_unique<int>()};
+    init(h_in.get(),sz);
+    int *raw_d_in=nullptr;
+    int *raw_d_out=nullptr;
+    cudaMalloc(reinterpret_cast<void**>(&raw_d_in),bytes);
+    cudaMalloc(reinterpret_cast<void**>(&raw_d_out),sizeof(int));
+    cudaMemcpy(raw_d_in,h_in.get(),bytes,cudaMemcpyHostToDevice);
+    kernel<<<grid,block>>>(raw_d_in,raw_d_out,sz);
     cudaDeviceSynchronize();
-    cudaMemcpy(h_out,d_out,sizeof(int),cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_out.get(),raw_d_out,sizeof(int),cudaMemcpyDeviceToHost);
     std::cout<<*h_out;
-    cudaFree(d_out),cudaFree(d_in);
-    delete h_out;delete h_in;
 
     return 0;
 }
