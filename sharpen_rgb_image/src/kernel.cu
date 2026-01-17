@@ -148,7 +148,7 @@ void sharpen_image(uchar4 *img_ptr,int w,int h,bool use_shared_mem_imp)
     const auto filter_bytes= filter_sz*filter_sz*sizeof(float);
     const dim3 blocks(TX,TY);
     const dim3 grid(div_up(w,blocks.x),div_up(h,blocks.y));
-    const float filter[9]={
+    constexpr float filter[9]={
         -1.0,-1.0,-1.0,
         -1.0,9.0,-1.0,
         -1.0,-1.0,-1.0,
