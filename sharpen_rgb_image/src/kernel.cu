@@ -133,10 +133,7 @@ __global__ void single_shared_mem_sharpen_kernel(uchar4 *out,const uchar4 *in,co
     out[g_img_idx].z=clip(channels[2]);
 
 }
-__global__ void double_shared_mem_sharpen_kernel(uchar4 *out,const uchar4 *in,const float *filter,int w,int h)
-{
 
-}
 
 int div_up(int a,int b)
 {
