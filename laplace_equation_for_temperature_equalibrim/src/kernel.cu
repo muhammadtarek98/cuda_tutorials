@@ -7,11 +7,28 @@
 
 __device__ unsigned char clip(int n)
 {
-    return n>255?255:(n<0?0:n);
+     if (n>255)
+     {
+         return 255;
+     }
+     if (n<0)
+     {
+         return 0;
+     }
+
+    return n;
 }
 __device__ int idxclip(int idx,int idx_max)
 {
-    return idx >(idx_max-1)?(idx_max-1):(idx<0?0:idx);
+     if (idx>idx_max-1)
+     {
+         return idx_max-1;
+     }
+     if (idx<0)
+     {
+         return 0;
+     }
+    return idx;
 
 }
 __device__ int flatten(int col,int row,int width,int height){
