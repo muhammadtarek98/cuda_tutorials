@@ -9,7 +9,7 @@ __global__ void kernel(float *res,float *a,float *b,int n)
         return;
     }
     const auto shared_mem_idx=threadIdx.x;
-    shared_mem[shared_mem_idx]=a[shared_mem_idx]*b[shared_mem_idx];
+    shared_mem[shared_mem_idx]=a[tgid]*b[tgid];
     __syncthreads();
     if (shared_mem_idx==0)
     {
@@ -34,7 +34,7 @@ int main()
     const auto sz=1024;
     const auto  bytes=sz*sizeof(float);
     const dim3 block(TPB);
-    const dim3 grid((sz-block.x-1)/block.x);
+    const dim3 grid((sz+block.x-1)/block.x);
     std::unique_ptr<float[]> h_a{std::make_unique<float[]>(sz)};
     std::unique_ptr<float[]> h_b{std::make_unique<float[]>(sz)};
     std::unique_ptr<float> h_c{std::make_unique<float>()};
