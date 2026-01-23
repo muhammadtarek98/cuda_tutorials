@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 4.1)
+project(distance_3D LANGUAGES C CXX CUDA)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CUDA_STANDARD 20)
+find_package(CUDAToolkit REQUIRED)
+add_executable(distance_3D main.cu)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CUDA_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} PRIVATE CUDA::cudart)
+set_target_properties(distance_3D PROPERTIES
+        CUDA_SEPARABLE_COMPILATION ON)
