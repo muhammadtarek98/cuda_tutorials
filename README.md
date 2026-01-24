@@ -63,15 +63,42 @@ This repository contains practical examples and tutorials demonstrating CUDA pro
 - **divergence_in_parallel_reduction** - Managing divergence in reduction operations
 - **parallel_reduction_using_dynamic_parallelism** - Reduction with dynamic parallelism
 
+### Atomic Operations
+- **atomic_operations** - Basic atomic operations in CUDA
+- **atomic_parrallel_dot_product** - Parallel vector dot product using atomic operations and shared memory
+- **custom_atomic_operation** - Implementing custom atomic operations
+
 ### Advanced Features
 - **dynamic_parallelism** - Launching kernels from within kernels
 - **synchronization** - Thread synchronization mechanisms
 - **error_handling** - Proper CUDA error handling techniques
 
+### Streams and Asynchronous Operations
+- **cuda_events** - Using CUDA events for timing and synchronization
+- **async_functions** - Asynchronous function execution
+- **non_nuil_stream_with_async_functions** - Non-null streams with async operations
+- **stream_synchronization** - Stream synchronization techniques
+- **streams_interdependcies** - Managing dependencies between streams
+- **memory_transfer_overlap** - Overlapping memory transfers with computation
+
+### Scan Operations
+- **simple_parallel_inclusive_scan** - Basic parallel inclusive scan implementation
+- **efficient_parallel_scan** - Optimized parallel scan algorithm
+
 ### Data Structures and Patterns
 - **AOS_VS_SOA** - Array of Structures vs Structure of Arrays comparison
 - **stencil_algorithm** - Stencil computation patterns
 - **stencil_computations** - Advanced stencil operations
+
+### Utility and Mathematical Operations
+- **distance_3D** - Computing 3D distances on GPU
+- **standard_and_intrinsic_functions** - Using CUDA standard and intrinsic math functions
+
+### Image Processing
+- **sharpen_rgb_image** - RGB image sharpening using CUDA and CImg library
+
+### Physical Simulations
+- **laplace_equation_for_temperature_equalibrim** - Solving Laplace equation for temperature equilibrium with OpenGL visualization
 
 ## Building and Running
 
