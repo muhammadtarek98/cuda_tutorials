@@ -13,7 +13,7 @@ int main()
             img_ptr[i*w+j].x=img(j,i,0);
             img_ptr[i*w+j].y=img(j,i,1);
             img_ptr[i*w+j].z=img(j,i,2);
-            img_ptr[i*w+j].w=255; // Initialize alpha channel
+            img_ptr[i*w+j].w=255; // Initialize alpha channel to full opacity
         }
     }
     sharpen_image(img_ptr,w,h,false);
