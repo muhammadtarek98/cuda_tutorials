@@ -3,7 +3,7 @@
 #include "kernel.cuh"
 int main()
 {
-    cimg_library::CImg<unsigned char> img("/home/muhammad/projects/cuda_tutorials/sharpen_rgb_image/butterfly.bmp");
+    cimg_library::CImg<unsigned char> img("butterfly.bmp");
     const int h=img.height(),w=img.width();
     uchar4 *img_ptr=(uchar4*) malloc(h*w*sizeof(uchar4));
     for (int i=0;i<h;i++)
@@ -13,6 +13,7 @@ int main()
             img_ptr[i*w+j].x=img(j,i,0);
             img_ptr[i*w+j].y=img(j,i,1);
             img_ptr[i*w+j].z=img(j,i,2);
+            img_ptr[i*w+j].w=255; // Initialize alpha channel to full opacity
         }
     }
     sharpen_image(img_ptr,w,h,false);
@@ -26,7 +27,7 @@ int main()
             img(j,i,2)=img_ptr[i*w+j].z;
         }
     }
-    img.save_bmp("/home/muhammad/projects/cuda_tutorials/sharpen_rgb_image/res.bmp");
+    img.save_bmp("res.bmp");
     free(img_ptr);
 
     return 0;
