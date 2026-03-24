@@ -31,10 +31,6 @@ __device__ int flatten(int col,int row,int w,int h)
     return col_idx+row_idx*w;
 
 }
-__device__ void apply_sharpen(int global_col,int global_row,int g_img_idx)
-{
-    //todo implement the sharpen for clean code in all three kennels
-}
 __global__ void normal_sharpen_kernel(uchar4 *out,const uchar4 *in,const float *filter,int w,int h)
 {
     int col=threadIdx.x+blockDim.x*blockIdx.x;
@@ -128,9 +124,9 @@ __global__ void single_shared_mem_sharpen_kernel(uchar4 *out,const uchar4 *in,co
         }
 
     }
-    out[g_img_idx].x=clip(channels[0]);
-    out[g_img_idx].y=clip(channels[1]);
-    out[g_img_idx].z=clip(channels[2]);
+    out[g_img_idx].x=clip(static_cast<int>(channels[0]));
+    out[g_img_idx].y=clip(static_cast<int>(channels[1]));
+    out[g_img_idx].z=clip(static_cast<int>(channels[2]));
 
 }
 
