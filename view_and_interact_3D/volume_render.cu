@@ -11,7 +11,7 @@ __device__ uchar4 volume_render_shader(float *d_vol,int3 vol_size,Ray ray,float 
     {
         if (density_val-threshold<0.0f)
         {
-            accum+=(fabsf(density_val-threshold))+len;
+            accum += (fabsf(density_val - threshold)) * len;
         }
         current_pos=param_ray(ray,i);
         density_val=density(d_vol,vol_size,current_pos);

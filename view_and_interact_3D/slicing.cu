@@ -7,18 +7,6 @@ __device__ int clip(const int n, const int n_max, const int n_min)
 {
     return n>n_max?n_max:(n<n_min?n_min:n);
 }
-__host__ __device__ float fracf(float v)
-{
-    return v - std::floor(v);
-}
-__device__ int flatten(int3 index, int3 volSize) {
-    return index.x + index.y*volSize.x + index.z*volSize.x*volSize.y;
-}
-
-__host__ __device__ float3 fracf(float3 v)
-{
-    return make_float3(fracf(v.x), fracf(v.y), fracf(v.z));
-}
 __device__ float density(float *d_vol,int3 vol_size,float3 pos)
 {
     int3 idx=posToIdx(pos,vol_size);

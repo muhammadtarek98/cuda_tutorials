@@ -12,7 +12,7 @@ __device__ bool intersection(Ray r,float3 box_min,float3 box_max,float *t_near,f
     const float3 ttop{invR*(box_max-r.orign)};
     const float3 tmin{make_float3(min(ttop.x,tbottom.x),min(ttop.y,tbottom.y),min(ttop.z,tbottom.z))};
     const float3 tmax{make_float3(max(ttop.x,tbottom.x),max(ttop.y,tbottom.y),max(ttop.z,tbottom.z))};
-    *t_near=max(max(tmax.x,tmin.y),max(tmin.x,tmin.z));
-    *t_far=min(min(tmax.x,tmax.y),min(tmax.x,tmax.z));
+    *t_near = fmaxf(fmaxf(tmin.x, tmin.y), fmaxf(tmin.x, tmin.z));
+    *t_far  = fminf(fminf(tmax.x, tmax.y), fminf(tmax.x, tmax.z));
     return *t_far>*t_near;
 }

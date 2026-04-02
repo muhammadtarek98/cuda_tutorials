@@ -3,7 +3,9 @@ __device__ uchar4 ray_caster(float *d_vol,int3 vol_size,Ray ray,float dist)
 {
     uchar4 shade{make_uchar4(96,0,192,0)};
     float3 pos{ray.orign};
-    float len{length(ray.dir)};
+    float len = length(ray.dir);
+    if (len < 1e-6f)
+        return shade;
     float t=0.0f;
     float f=density(d_vol,vol_size,pos);
     while (f>dist+EPS &&t<1.0f)
