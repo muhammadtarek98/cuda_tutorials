@@ -7,10 +7,8 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #define ITERS_PEER_RENDER 50
-#ifdef __CUDACC__
 #include <cuda_runtime.h>
-#endif
-
+#include <cuda_gl_interop.h>
 struct uchar4;
 typedef struct
 {
@@ -26,6 +24,3 @@ extern   int h;
 extern   GLuint pbo;
 extern   GLuint tex;
 extern  float* d_temp;
-
-
-

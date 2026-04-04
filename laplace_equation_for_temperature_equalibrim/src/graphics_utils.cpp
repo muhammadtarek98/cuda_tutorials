@@ -1,13 +1,10 @@
 #include "graphics_utils.h"
-void render()
-{
+void render() {
     uchar4 *d_out = 0;
     cudaGraphicsMapResources(1, &resource, 0);
     cudaGraphicsResourceGetMappedPointer((void **)&d_out, NULL,
-      resource);
-    for (int i = 0; i < ITERS_PEER_RENDER; ++i) {
-        kernel_launcher(d_out, d_temp, W, H, bc);
-    }
+    resource);
+    kernel_launcher(d_out, d_temp, W, H, bc);
     cudaGraphicsUnmapResources(1, &resource, 0);
     char title[128];
     sprintf(title, "Temperature Visualizer - Iterations=%4d, "
@@ -19,7 +16,7 @@ void render()
 void draw_texture()
 {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W, H, 0, GL_RGBA,
-        GL_UNSIGNED_BYTE, NULL);
+     GL_UNSIGNED_BYTE, NULL);
     glEnable(GL_TEXTURE_2D);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f); glVertex2f(0, 0);
@@ -38,37 +35,33 @@ void display()
 }
 
 
-void init_GLUT(int *argc,char **argv)
-{
+void init_GLUT(int *argc, char **argv) {
     glutInit(argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowSize(W, H);
     glutCreateWindow("Temp. Vis.");
-#ifndef __APPLE__
-    glewInit();
-#endif
+    // Set up orthographic projection
+    glViewport(0, 0, W, H);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, W, H, 0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glClearColor(0.f, 0.f, 0.f, 1.f);
 }
 
-
-void init_pixel_buffer()
-{
+void init_pixel_buffer() {
     glGenBuffers(1, &pbo);
     glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
-    glBufferData(GL_PIXEL_UNPACK_BUFFER, W*H*sizeof(GLubyte)* 4, 0,
-      GL_STREAM_DRAW);
+    glBufferData(GL_PIXEL_UNPACK_BUFFER, 4*W*H*sizeof(GLubyte), 0,
+    GL_STREAM_DRAW);
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     cudaGraphicsGLRegisterBuffer(&resource, pbo,
-      cudaGraphicsMapFlagsWriteDiscard);
+    cudaGraphicsMapFlagsWriteDiscard);
 }
-
-void exit_func()
-{
-    if (pbo) {
-        cudaGraphicsUnregisterResource(resource);
-        glDeleteBuffers(1, &pbo);
-        glDeleteTextures(1, &tex);
-    }
+void exit_func() {
+    if (tex) glDeleteTextures(1, &tex);
     cudaFree(d_temp);
 }
